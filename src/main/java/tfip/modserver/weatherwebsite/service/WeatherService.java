@@ -20,6 +20,8 @@ public class WeatherService {
     
     final private String API = "";
 
+
+
     public String[] getWeather(String city) throws IOException {
         String url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API + "&units=metric";
         RestTemplate template = new RestTemplate();
