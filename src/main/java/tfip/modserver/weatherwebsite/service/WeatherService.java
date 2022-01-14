@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+
+
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,22 @@ import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
+import static tfip.modserver.weatherwebsite.Constants.*;
 
 @Service
 public class WeatherService {
     
-    final private String API = "";
+    final private String API;
 
+    public WeatherService(){
+        String k = System.getenv(ENV_OPENWEATHERMAP_KEY);
+        if (null!=k && !k.isBlank()){
+            API = k;
+        }
+        else{
+            API= "123";
+        }
+    }
 
 
     public String[] getWeather(String city) throws IOException {
