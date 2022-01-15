@@ -30,7 +30,7 @@ public class WeatherService {
             API = k;
         }
         else{
-            API= "307dba7c340e61ba1e4dde65b5e24eb9";
+            API= "";
         }
     }
 
