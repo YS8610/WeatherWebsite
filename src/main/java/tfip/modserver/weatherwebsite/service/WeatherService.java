@@ -4,8 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-
-
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +14,8 @@ import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
+import tfip.modserver.weatherwebsite.model.Weather;
+
 import static tfip.modserver.weatherwebsite.Constants.*;
 
 @Service
@@ -23,19 +23,20 @@ public class WeatherService {
     
     final private String API;
 
+
     public WeatherService(){
         String k = System.getenv(ENV_OPENWEATHERMAP_KEY);
         if (null!=k && !k.isBlank()){
             API = k;
         }
         else{
-            API= "123";
+            API= "307dba7c340e61ba1e4dde65b5e24eb9";
         }
     }
 
-
-    public String[] getWeather(String city) throws IOException {
+    public Weather getWeather(String city) throws IOException {
         String url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API + "&units=metric";
+
         RestTemplate template = new RestTemplate();
 
         RequestEntity<Void> req = RequestEntity.get(url)
@@ -55,9 +56,11 @@ public class WeatherService {
             String weatherMain = weatherJson.getString("main");
             String weatherDesc = weatherJson.getString("description");
             String weatherIcon = weatherJson.getString("icon");
-            String mainTemp = mainJson.getJsonNumber("temp").toString();
-            
-            return new String[] {weatherMain,weatherDesc,weatherIcon,mainTemp};
+            String weatherTemp = mainJson.getJsonNumber("temp").toString();
+
+            Weather weather = new Weather(weatherMain,weatherDesc,weatherIcon,weatherTemp,city);
+
+            return weather;
         }
     }
 }
