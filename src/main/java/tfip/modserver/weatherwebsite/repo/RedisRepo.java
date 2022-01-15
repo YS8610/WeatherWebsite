@@ -27,6 +27,7 @@ public class RedisRepo {
         String stringwithQuote = parser.getObjectStream().filter(e -> e.getKey().equalsIgnoreCase(key))
                 .map(e->e.getValue().toString())
                 .reduce("",(s0,s1) -> s0+s1);
+        parser.close();
         return stringwithQuote.substring(1,stringwithQuote.length()-1);
     }
 
