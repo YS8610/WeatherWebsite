@@ -12,7 +12,6 @@ import tfip.modserver.weatherwebsite.model.Weather;
 
 import java.io.StringReader;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Repository
 public class RedisRepo {
